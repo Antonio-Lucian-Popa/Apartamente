@@ -38,8 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'apartamente',
-    'apartamente.apps.ApartamenteConfig',
+    'apartamente.apps.ApartamenteConfig',  # Păstrează doar această linie
 ]
 
 MIDDLEWARE = [

@@ -1,11 +1,14 @@
+# apartamente/apps.py
 from django.apps import AppConfig
-from . import tasks
+from django.db.models.signals import post_migrate
 import threading
 
 class ApartamenteConfig(AppConfig):
-    default_auto_field = 'django.db.models.BigAutoField'
     name = 'apartamente'
+
     def ready(self):
-        # from .tasks import start_scheduler
-        # threading.Thread(target=start_scheduler).start()
-        pass
+        post_migrate.connect(start_scheduler, sender=self)
+        
+def start_scheduler(sender, **kwargs):
+    from .tasks import initialize_scheduler
+    threading.Thread(target=initialize_scheduler).start()
